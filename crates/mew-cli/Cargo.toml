@@ -1,0 +1,20 @@
+[package]
+name = "mew-cli"
+version = "0.1.0"
+edition.workspace = true
+license.workspace = true
+description.workspace = true
+
+[[bin]]
+name = "mew"
+path = "src/main.rs"
+
+[dependencies]
+anyhow.workspace = true
+clap.workspace = true
+rand.workspace = true
+toml.workspace = true
+tracing.workspace = true
+tracing-subscriber.workspace = true
+mew-common = { path = "../mew-common" }
+mew-ui = { path = "../mew-ui" }

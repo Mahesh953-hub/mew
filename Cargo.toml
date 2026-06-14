@@ -1,0 +1,32 @@
+[workspace]
+members = [
+  "crates/mew-cli",
+  "crates/mew-common",
+  "crates/mew-ui"
+]
+resolver = "2"
+
+[workspace.package]
+edition = "2021"
+license = "Apache-2.0"
+repository = "https://github.com/yourname/mew"
+homepage = "https://github.com/yourname/mew"
+authors = ["yourname"]
+description = "mew — a tiny coding cat with sharp claws."
+
+[workspace.dependencies]
+anyhow = "1"
+thiserror = "1"
+clap = { version = "4", features = ["derive"] }
+serde = { version = "1", features = ["derive"] }
+serde_json = "1"
+toml = "0.8"
+directories = "5"
+owo-colors = "4"
+console = "0.15"
+indicatif = "0.17"
+comfy-table = "7"
+supports-color = "3"
+rand = "0.8"
+tracing = "0.1"
+tracing-subscriber = { version = "0.3", features = ["env-filter"] }
