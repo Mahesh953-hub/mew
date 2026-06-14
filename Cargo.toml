@@ -30,3 +30,8 @@ supports-color = "3"
 rand = "0.8"
 tracing = "0.1"
 tracing-subscriber = { version = "0.3", features = ["env-filter"] }
+
+terminal_size = "0.3"
+textwrap = "0.16"
+unicode-width = "0.1"
+strip-ansi-escapes = "0.2"

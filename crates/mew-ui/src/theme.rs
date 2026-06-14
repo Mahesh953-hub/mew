@@ -7,15 +7,19 @@ pub struct MewTheme {
 pub const THEMES: &[MewTheme] = &[
     MewTheme {
         name: "crush-catppuccin",
-        description: "soft rich catppuccin-inspired crush theme",
+        description: "minimal soft purple/cyan crush aesthetic",
     },
     MewTheme {
-        name: "crush-mocha",
-        description: "deep soft terminal velvet",
+        name: "claude-minimal",
+        description: "clean low-noise Claude Code-like terminal style",
+    },
+    MewTheme {
+        name: "vector-mocha",
+        description: "vector-card dark mocha blocks",
     },
     MewTheme {
         name: "crush-rose",
-        description: "warm rosy crush palette",
+        description: "warm rose rich terminal cards",
     },
     MewTheme {
         name: "mew-dark",

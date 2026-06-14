@@ -5,7 +5,7 @@ use anyhow::Result;
 use args::{Cli, Commands};
 use clap::Parser;
 use mew_common::{MewConfig, MewPaths};
-use mew_ui::{hint_card, startup_banner};
+use mew_ui::{clear_screen, hint_card, startup_banner};
 
 fn main() -> Result<()> {
     tracing_subscriber::fmt()
@@ -25,14 +25,15 @@ fn main() -> Result<()> {
         Some(Commands::Style(cmd)) => commands::style::run(&paths, &mut cfg, cmd)?,
         Some(Commands::Config(cmd)) => commands::config::run(&paths, &cfg, cmd)?,
         None => {
+            clear_screen();
             println!("{}", startup_banner(&cfg, "not initialized"));
             println!();
             println!(
                 "{}",
                 hint_card(&[
-                    "try: mew init",
-                    "try: mew ask \"what does this repo do?\"",
-                    "try: mew style preview",
+                    "enter a task soon: mew ask \"what does this repo do?\"",
+                    "sniff this project: mew init",
+                    "change the fur: mew style preview",
                 ])
             );
         }

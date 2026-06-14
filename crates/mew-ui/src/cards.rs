@@ -1,51 +1,119 @@
 use owo_colors::OwoColorize;
 
+use crate::layout::{fit, line, wrap_lines, TerminalLayout};
+
 pub fn hint_card(lines: &[&str]) -> String {
+    let layout = TerminalLayout::detect();
+    let w = layout.card_width();
+    let inner = w - 4;
     let mut out = String::new();
+
     out.push_str(&format!(
-        "{}\n",
-        "╭─ hint ─────────────────────────────────────╮".bright_blue()
+        "{}{}{}\n",
+        "╭─ ".bright_black(),
+        "hint".bright_blue(),
+        format!(" {}", line('─', w.saturating_sub(8))).bright_black()
     ));
-    for line in lines {
-        out.push_str(&format!("│ {:<42} │\n", line));
+
+    for line_text in lines {
+        for wrapped in wrap_lines(line_text, inner) {
+            out.push_str(&format!(
+                "{} {} {}\n",
+                "│".bright_black(),
+                fit(&wrapped, inner),
+                "│".bright_black()
+            ));
+        }
     }
+
     out.push_str(&format!(
-        "{}",
-        "╰────────────────────────────────────────────╯".bright_blue()
+        "{}{}{}",
+        "╰".bright_black(),
+        line('─', w - 2),
+        "╯".bright_black()
     ));
+
     out
 }
 
 pub fn error_card(title: &str, body: &str) -> String {
-    format!(
-        "{}\n│ {:<42} │\n│ {:<42} │\n{}",
-        format!("╭─ hiss! {:<31}╮", title).bright_red(),
-        "something scratched back",
-        body,
-        "╰────────────────────────────────────────────╯".bright_red()
-    )
+    let layout = TerminalLayout::detect();
+    let w = layout.card_width();
+    let inner = w - 4;
+    let mut out = String::new();
+
+    out.push_str(&format!(
+        "{}{}{}\n",
+        "╭─ ".bright_black(),
+        format!("hiss! {title}").bright_red(),
+        format!(" {}", line('─', w.saturating_sub(title.len() + 10))).bright_black()
+    ));
+
+    for wrapped in wrap_lines(body, inner) {
+        out.push_str(&format!(
+            "{} {} {}\n",
+            "│".bright_black(),
+            fit(&wrapped, inner),
+            "│".bright_black()
+        ));
+    }
+
+    out.push_str(&format!(
+        "{}{}{}",
+        "╰".bright_black(),
+        line('─', w - 2),
+        "╯".bright_black()
+    ));
+
+    out
 }
 
 pub fn tool_card(tool: &str, target: &str, risk: &str) -> String {
-    format!(
-        "{}\n│ tool      {:<31}│\n│ target    {:<31}│\n│ risk      {:<31}│\n{}",
-        "╭─ paw step ─────────────────────────────────╮".bright_magenta(),
-        tool,
-        target,
-        risk,
-        "╰────────────────────────────────────────────╯".bright_magenta()
-    )
+    let layout = TerminalLayout::detect();
+    let w = layout.card_width();
+    let inner = w - 4;
+
+    let rows = [
+        format!("tool    {tool}"),
+        format!("target  {target}"),
+        format!("risk    {risk}"),
+    ];
+
+    let mut out = String::new();
+    out.push_str(&format!(
+        "{}{}{}\n",
+        "╭─ ".bright_black(),
+        "paw step".bright_magenta(),
+        format!(" {}", line('─', w.saturating_sub(12))).bright_black()
+    ));
+
+    for row in rows {
+        out.push_str(&format!(
+            "{} {} {}\n",
+            "│".bright_black(),
+            fit(&row, inner),
+            "│".bright_black()
+        ));
+    }
+
+    out.push_str(&format!(
+        "{}{}{}",
+        "╰".bright_black(),
+        line('─', w - 2),
+        "╯".bright_black()
+    ));
+
+    out
 }
 
 pub fn code_block(lang: &str, code: &str) -> String {
-    format!("```{}\n{}\n```", lang, code)
+    crate::render::render_code(lang, code)
 }
 
 pub fn diff_sample() -> String {
-    [
-        "diff --git a/src/main.rs b/src/main.rs",
-        "- println!(\"hello\");",
-        "+ println!(\"mew~\");",
-    ]
-    .join("\n")
+    crate::render::render_diff(
+        r#"diff --git a/src/main.rs b/src/main.rs
+- println!("hello");
++ println!("mew~");"#,
+    )
 }

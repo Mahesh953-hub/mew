@@ -24,7 +24,7 @@ Status: done
 
 ## Phase 1 — Rust Workspace + Beautiful CLI Shell
 
-Status: in progress
+Status: done
 
 - [x] create Cargo workspace
 - [x] create `mew-cli`
@@ -32,6 +32,7 @@ Status: in progress
 - [x] create `mew-ui`
 - [x] add `mew --help`
 - [x] add startup greet
+- [x] clear terminal before greet
 - [x] add config paths
 - [x] add config load/save
 - [x] add name commands
@@ -40,26 +41,42 @@ Status: in progress
 - [x] add `mew init --dry-run`
 - [x] add phrase bank
 - [x] add basic tables/cards/banner/code/diff preview
-- [ ] polish terminal capability detection
-- [ ] add more rich themes
-- [ ] add markdown/code/diff renderer
-- [ ] add spinner animation helpers
-- [ ] add tests
-- [ ] add CI
+- [x] polish terminal capability detection
+- [x] add more rich themes
+- [x] add markdown/code/diff renderer
+- [x] add spinner animation helpers
+- [x] add responsive terminal wrapper
+- [x] add tiny/narrow/normal/wide layout classes
+- [x] add tests
+- [x] add CI
+
+## Phase 1 Learnings
+
+- [x] terminal UI must be more attractive and minimal
+- [x] banner should feel vectorized and Claude Code-like
+- [x] greet should clear terminal
+- [x] blocks must wrap and adapt to narrow/wide terminals
+- [x] rich output should not depend on TUI
+- [x] normal spacing + responsive blocks > fixed giant boxes
 
 ## Phase 2 — Provider Brain v0
 
-Status: queued
+Status: next
 
 - [ ] create `mew-provider`
 - [ ] provider trait
-- [ ] OpenAI/Codex provider
-- [ ] OpenRouter provider
+- [ ] OpenAI-compatible adapter
+- [ ] OpenAI/Codex preset
+- [ ] OpenRouter preset
 - [ ] Gemini provider
+- [ ] config env key loading
+- [ ] `mew provider list`
+- [ ] `mew provider test`
+- [ ] `mew model list`
+- [ ] `mew model use`
 - [ ] `mew ask`
 - [ ] `mew chat`
 - [ ] streaming renderer
-- [ ] model list/use commands
 
 ## Phase 3 — Project Init + Context Sniffer
 

@@ -1,7 +1,8 @@
 use anyhow::{anyhow, Result};
 use mew_common::{MewConfig, MewPaths};
 use mew_ui::{
-    code_block, diff_sample, hint_card, kv_table, phrase, theme_exists, tool_card, THEMES,
+    code_block, diff_sample, hint_card, kv_table, phrase, spinner_frame, theme_exists, tool_card,
+    THEMES,
 };
 
 use crate::args::{StyleCommand, StyleSubcommand};
@@ -37,18 +38,18 @@ pub fn run(paths: &MewPaths, cfg: &mut MewConfig, cmd: StyleCommand) -> Result<(
             );
 
             println!();
-            println!(
-                "{}",
-                hint_card(&["mew style set mew-cave", "mew name set paww"])
-            );
+            println!("{}", hint_card(&["mew style set claude-minimal", "mew name set paww"]));
             println!();
             println!("{}", tool_card("fs.read", "src/main.rs", "safe"));
             println!();
-            println!("{}", phrase("thinking"));
+
+            let spin = spinner_frame(3, "thinking");
+            println!("{} {}", spin.frame, spin.text);
             println!("{}", phrase("token"));
             println!("{}", phrase("council"));
+
             println!();
-            println!("{}", code_block("rust", "println!(\"mew~\");"));
+            println!("{}", code_block("rust", "fn main() {\n    println!(\"mew~\");\n}"));
             println!();
             println!("{}", diff_sample());
         }
