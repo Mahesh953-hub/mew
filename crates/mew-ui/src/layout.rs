@@ -63,10 +63,8 @@ pub fn clear_screen() {
 }
 
 pub fn visible_width(s: &str) -> usize {
-    let clean = strip_ansi_escapes::strip(s)
-        .ok()
-        .and_then(|v| String::from_utf8(v).ok())
-        .unwrap_or_else(|| s.to_string());
+    let bytes = strip_ansi_escapes::strip(s);
+    let clean = String::from_utf8(bytes).unwrap_or_else(|_| s.to_string());
     UnicodeWidthStr::width(clean.as_str())
 }
 
