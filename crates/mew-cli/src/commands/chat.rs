@@ -109,8 +109,8 @@ pub async fn run(paths: &MewPaths, cfg: &mut MewConfig, model: Option<String>) -
                     temperature: Some(0.2),
                     max_tokens: None,
                 },
-                &mut |delta| {
-                    full.push_str(delta);
+                &mut |delta: String| {
+                    full.push_str(&delta);
                     print!("{}", delta);
                     let _ = io::stdout().flush();
                 },

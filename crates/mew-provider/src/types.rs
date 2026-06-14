@@ -68,10 +68,10 @@ pub trait Provider: Send + Sync {
     async fn chat_stream(
         &self,
         req: ChatRequest,
-        on_delta: &mut (dyn FnMut(&str) + Send),
+        on_delta: &mut (dyn FnMut(String) + Send),
     ) -> Result<ChatResponse> {
         let res = self.chat(req).await?;
-        on_delta(&res.text);
+        on_delta(res.text.clone());
         Ok(res)
     }
 

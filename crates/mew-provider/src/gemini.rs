@@ -138,12 +138,15 @@ impl Provider for GeminiProvider {
     async fn chat_stream(
         &self,
         req: ChatRequest,
-        on_delta: &mut (dyn FnMut(&str) + Send),
+        on_delta: &mut (dyn FnMut(String) + Send),
     ) -> Result<ChatResponse> {
         let res = self.chat(req).await?;
-        for chunk in res.text.split_inclusive(['.', '\n']) {
-            on_delta(chunk);
+        let text = res.text.clone();
+
+        for chunk in text.split_inclusive(['.', '\n']) {
+            on_delta(chunk.to_string());
         }
+
         Ok(res)
     }
 }

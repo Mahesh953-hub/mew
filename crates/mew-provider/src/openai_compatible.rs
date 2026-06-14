@@ -139,7 +139,7 @@ impl Provider for OpenAiCompatibleProvider {
     async fn chat_stream(
         &self,
         req: ChatRequest,
-        on_delta: &mut (dyn FnMut(&str) + Send),
+        on_delta: &mut (dyn FnMut(String) + Send),
     ) -> Result<ChatResponse> {
         let api_key = self.api_key()?;
         let url = format!("{}/chat/completions", self.base_url.trim_end_matches('/'));
@@ -201,7 +201,7 @@ impl Provider for OpenAiCompatibleProvider {
                     for choice in parsed.choices {
                         if let Some(content) = choice.delta.content {
                             full.push_str(&content);
-                            on_delta(&content);
+                            on_delta(content.clone());
                         }
                     }
                 }

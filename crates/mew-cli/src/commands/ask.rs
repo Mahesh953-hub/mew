@@ -36,8 +36,8 @@ pub async fn run(
                 temperature: Some(0.2),
                 max_tokens: None,
             },
-            &mut |delta| {
-                streamed.push_str(delta);
+            &mut |delta: String| {
+                streamed.push_str(&delta);
                 print!("{}", delta);
                 let _ = io::stdout().flush();
             },
